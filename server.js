@@ -7,12 +7,12 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.static("public")); // Serve static files like HTML, CSS, JS
 
-// Connect to the MySQL database
+// Connect to the database
 const pool = mysql.createPool({
     host: "localhost",
-    user: "root", // Replace with your MySQL username
-    password: "new_password", // Replace with your MySQL root password
-    database: "orders_db", // The name of the database
+    user: "root", 
+    password: "new_password", 
+    database: "orders_db", 
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
@@ -34,7 +34,7 @@ app.get("/api/products", (req, res) => {
 app.post("/api/orders", async (req, res) => {
     const { customerName, products } = req.body;
 
-    // Ensure the customer name and products are present
+    // Ensure the customer name is entered and minimum one product is selected
     if (!customerName || !products || products.length === 0) {
         return res.status(400).json({ error: "Invalid order data" });
     }
